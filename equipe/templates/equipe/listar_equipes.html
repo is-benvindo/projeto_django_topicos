@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Equipes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 10px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            color: #4CAF50;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+        hr {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Relatório de Equipes</h1>
+    {% for equipe in equipes %}
+        <section>
+            <h2>Time: {{ equipe.nome_time }}</h2>
+            <p><strong>Modalidade:</strong> {{ equipe.modalidade.nome }}</p>
+            <p><strong>Técnico:</strong> 
+                {% if equipe.tecnico %}
+                    {{ equipe.tecnico.nome }}
+                {% else %}
+                    Nenhum técnico cadastrado
+                {% endif %}
+            </p>
+            
+            <section>
+                <h3>Atletas:</h3>
+                <ul>
+                    {% for atleta in equipe.atletas.all %}
+                        <li>{{ atleta.nome_completo }} - Matrícula: {{ atleta.matricula }}</li>
+                    {% empty %}
+                        <li>Nenhum atleta cadastrado</li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <hr>
+        </section>
+    {% endfor %}
+</body>
+</html>
